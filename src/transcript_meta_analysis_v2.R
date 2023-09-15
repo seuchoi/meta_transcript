@@ -275,7 +275,7 @@ genename<-genenames[gg]
 gdata<-subset(data,Group==genename &n.alt>=min.cmac)
 
 if(nrow(gdata)>0){
-gpvalue<-unlist(gdata[,pvalues])
+gpvalue<-unique(unlist(gdata[,pvalues]))
 gpvalue<-na.omit(gpvalue)
 total.cauchy.pval<-CCT(gpvalue)
 sum0<-data.frame(Group=genename,Cauchy.anytranscript.pval=total.cauchy.pval)
