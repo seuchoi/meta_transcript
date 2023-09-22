@@ -168,74 +168,81 @@ transcript_meta_analysis_ver2<-function(study_path_vector=study_path_vector,
 
          # Then using adapted GENESIS script
          ### Burden test
-             burden.pval <- pchisq(U.sum^2/V.sum, df=1, lower.tail=FALSE)
-             out[,c("Burden.Score", "Burden.Variance", "Burden.pval")] <- c(U.sum, V.sum, burden.pval)
-             class(out$Burden.Score) <- class(out$Burden.Variance) <- class(out$Burden.pval) <- "numeric"
 
+            if("Burden" %in% test){
+              out0<-burden.fun(U.sum=U.sum,V.sum=V.sum)
+             out[,names(out0)]<-unlist(out0)
+           }
          ### SKAT
              if("SKAT" %in% test){
-                Q                <- sum(U^2)
-                SKAT.pval        <- NA
-                SKAT.pval.method <- NA
-                if(mean(abs(V)) >= sqrt(.Machine$double.eps)) {
-                   pv               <- GENESIS:::.regular(Q, V, n.variants)
-                   SKAT.pval        <- pv$pval
-                   SKAT.pval.method <- pv$method
-                }
-                out[,c('SKAT.pval', 'SKAT.pval.method')] <- c(SKAT.pval, SKAT.pval.method)
-                class(out$SKAT.pval)        <- "numeric"
-                class(out$SKAT.pval.method) <- "character"
+                out0<-skat.fun(U=U,V=V,n.variants=n.variants)
+                out[,names(out0)]<-unlist(out0)
+##                Q                <- sum(U^2)
+##                SKAT.pval        <- NA
+##                SKAT.pval.method <- NA
+##                if(mean(abs(V)) >= sqrt(.Machine$double.eps)) {
+##                   pv               <- GENESIS:::.regular(Q, V, n.variants)
+##                   SKAT.pval        <- pv$pval
+##                   SKAT.pval.method <- pv$method
+##                }
+##                out[,c('SKAT.pval', 'SKAT.pval.method')] <- c(SKAT.pval, SKAT.pval.method)
+##                class(out$SKAT.pval)        <- "numeric"
+##                class(out$SKAT.pval.method) <- "character"
              }
 
          ### SKAT-O
              if("SKATO" %in% test){
-                Q                 <- sum(U^2)
-                SKATO.pval        <- NA
-                SKATO.pval.method <- NA
-                if(mean(abs(V)) >= sqrt(.Machine$double.eps)) {
-                   res_skato       <- GMMAT:::.skato_pval(U = U, V = V, rho = rho, method = "davies")
-                   Burden.Score    <- res_skato$Burden.score
-                   Burden.Variance <- res_skato$Burden.var
-                   Burden.pval     <- res_skato$Burden.pval
-                   SKAT.pval       <- res_skato$SKAT.pval
-                   SKATO.pval      <- res_skato$p
-                   SKATO.minp      <- res_skato$minp
-                   SKATO.minp.rho  <- res_skato$minp.rho
-                }
-                out[,c("Burden.Score","Burden.Variance","Burden.pval",
-                       "SKAT.pval","SKATO.pval","SKATO.minp","SKATO.minp.rho")] <- c(Burden.Score,Burden.Variance,
-                                                                                     Burden.pval,SKAT.pval,SKATO.pval,
-                                                                                     SKATO.minp,SKATO.minp.rho)
+               out0<-skato.fun(U=U,V=V,rho=rho)
+               out[,names(out0)]<-unlist(out0)
+##                Q                 <- sum(U^2)
+##                SKATO.pval        <- NA
+##                SKATO.pval.method <- NA
+##                if(mean(abs(V)) >= sqrt(.Machine$double.eps)) {
+##                   res_skato       <- GMMAT:::.skato_pval(U = U, V = V, rho = rho, method = "davies")
+##                   Burden.Score    <- res_skato$Burden.score
+##                   Burden.Variance <- res_skato$Burden.var
+##                   Burden.pval     <- res_skato$Burden.pval
+##                   SKAT.pval       <- res_skato$SKAT.pval
+##                   SKATO.pval      <- res_skato$p
+##                   SKATO.minp      <- res_skato$minp
+##                   SKATO.minp.rho  <- res_skato$minp.rho
+##                }
+##                out[,c("Burden.Score","Burden.Variance","Burden.pval",
+##                       "SKAT.pval","SKATO.pval","SKATO.minp","SKATO.minp.rho")] <- c(Burden.Score,Burden.Variance,
+##                                                                                     Burden.pval,SKAT.pval,SKATO.pval,
+##                                                                                     SKATO.minp,SKATO.minp.rho)
              }
 
          ### SMMAT
              if("SMMAT" %in% test){
-             # Compute burden-adjusted SKAT statistic
-               U <- U - GG1*U.sum/V.sum
-               Q <- sum(U^2)
-               V <- V - tcrossprod(GG1)/V.sum
-             # SKAT
-               theta.pval        <- NA
-               theta.pval.method <- NA
-               err               <- NA
-               if(mean(abs(V)) >= sqrt(.Machine$double.eps)) {
-                  pv                <- GENESIS:::.regular(Q, V, n.variants)
-                  theta.pval        <- pv$pval
-                  theta.pval.method <- pv$method
-                  err               <- pv$err
-               }
-             # Fisher's method to combine p-values
-               SMMAT.pval <- tryCatch(pchisq(-2*log(burden.pval)-2*log(theta.pval), df=4, lower.tail = FALSE),
-                                      error = function(e) { NA })
-               if(is.na(SMMAT.pval)) {
-                  err        <- 1
-                  SMMAT.pval <- NA
-                  SMMAT.pval <- burden.pval
-               }
-               out[,c("theta.pval", "theta.pval.method", "err", "SMMAT.pval")]  <- c(theta.pval, theta.pval.method,
-                                                                                     err, SMMAT.pval)
-               class(out$theta.pval) <- class(out$err) <- class(out$SMMAT.pval) <- "numeric"
-               class(out$theta.pval.method) <- "character"
+               out0<-smmat.fun(U=U,V=V,U.sum=U.sum,V.sum=V.sum,GG1=GG1)
+               out[,names(out0)]<-unlist(out0)
+##             # Compute burden-adjusted SKAT statistic
+##               U <- U - GG1*U.sum/V.sum
+##               Q <- sum(U^2)
+##               V <- V - tcrossprod(GG1)/V.sum
+##             # SKAT
+##               theta.pval        <- NA
+##               theta.pval.method <- NA
+##               err               <- NA
+##               if(mean(abs(V)) >= sqrt(.Machine$double.eps)) {
+##                  pv                <- GENESIS:::.regular(Q, V, n.variants)
+##                  theta.pval        <- pv$pval
+##                  theta.pval.method <- pv$method
+##                  err               <- pv$err
+##               }
+##             # Fisher's method to combine p-values
+##               SMMAT.pval <- tryCatch(pchisq(-2*log(burden.pval)-2*log(theta.pval), df=4, lower.tail = FALSE),
+##                                      error = function(e) { NA })
+##               if(is.na(SMMAT.pval)) {
+##                  err        <- 1
+##                  SMMAT.pval <- NA
+##                  SMMAT.pval <- burden.pval
+##               }
+##               out[,c("theta.pval", "theta.pval.method", "err", "SMMAT.pval")]  <- c(theta.pval, theta.pval.method,
+##                                                                                     err, SMMAT.pval)
+##               class(out$theta.pval) <- class(out$err) <- class(out$SMMAT.pval) <- "numeric"
+##               class(out$theta.pval.method) <- "character"
              }
          #############################
 
