@@ -1,6 +1,6 @@
 
 burden.fun<-function(U.sum,V.sum){
-}
+
 burden.pval <- pchisq(U.sum^2/V.sum, df=1, lower.tail=FALSE)
 out<-data.frame(Burden.Score=U.sum, Burden.Variance=V.sum, Burden.pval=burden.pval)
 class(out$Burden.Score) <- class(out$Burden.Variance) <- class(out$Burden.pval) <- "numeric"
