@@ -45,12 +45,14 @@ return(out)
 }
 
 
-smmat.fun<-function(U,V,U.sum,V.sum,GG1){
+smmat.fun<-function(U,V,U.sum,V.sum,GG1,n.variants){
 # Compute burden-adjusted SKAT statistic
   U <- U - GG1*U.sum/V.sum
   Q <- sum(U^2)
   V <- V - tcrossprod(GG1)/V.sum
-# SKAT
+  burden.pval <- pchisq(U.sum^2/V.sum, df=1, lower.tail=FALSE)
+
+  # SKAT
   theta.pval        <- NA
   theta.pval.method <- NA
   err               <- NA

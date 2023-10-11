@@ -215,7 +215,7 @@ transcript_meta_analysis_ver2<-function(study_path_vector=study_path_vector,
 
          ### SMMAT
              if("SMMAT" %in% test){
-               out0<-smmat.fun(U=U,V=V,U.sum=U.sum,V.sum=V.sum,GG1=GG1)
+               out0<-smmat.fun(U=U,V=V,U.sum=U.sum,V.sum=V.sum,GG1=GG1,n.variants=n.variants)
                out[,names(out0)]<-unlist(out0)
 ##             # Compute burden-adjusted SKAT statistic
 ##               U <- U - GG1*U.sum/V.sum
