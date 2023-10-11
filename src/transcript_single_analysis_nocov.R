@@ -33,7 +33,8 @@ transcript_single_analysis_nocovout<-function(study_path=study_path,
 
 ## Determine grouping label group_id=(ENSG...)  transcript_id=(ENST...)
    transgroup_list<-list()
-   for(i in 1:n_studies){
+   #for(i in 1:n_studies){
+  i=1
      if(use.anytranscript){ # then group_id = c(ENSG..., ENST...)
         grp1<-grp0<-get(load(grouping_path[[i]]))
         names(grp1)[which(names(grp1) %in% c("TranscriptID"))]<-names(grp0)[which(names(grp0) %in% c("TranscriptID"))]<-"transcript_id"
@@ -44,7 +45,7 @@ transcript_single_analysis_nocovout<-function(study_path=study_path,
      }else{
         transgroup_list[[i]]<-get(load(grouping_path[[i]]))
      }
-   }
+   #}
 
 ## ---------------------------------------------------------------------
 ## Cycle over Gene groupings
@@ -77,8 +78,8 @@ transcript_single_analysis_nocovout<-function(study_path=study_path,
 
       # --------------------------------------------------------------------
       # creating sv.list and V.list
-      for(i in 1:n_studies){   #(4)#
-
+      #for(i in 1:n_studies){   #(4)#
+      i=1
             transgroup_data      <- transgroup_list[[i]]
             trans_group_variants <- subset(transgroup_data,transcript_id==transID)
 
@@ -112,7 +113,7 @@ transcript_single_analysis_nocovout<-function(study_path=study_path,
           colnames(out) <- c("Group", "Transcript","n.studies.contributing", "n.site", "n.alt")
           rownames(out) <- group
           class(out$n.studies.contributing) <- class(out$n.site) <- class(out$n.alt) <- "integer"
-        } #(4)#
+        #} #(4)#
 
       # Fix when one sv list is 0
         if(length(sv.list)>0){
