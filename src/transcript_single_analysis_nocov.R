@@ -2,9 +2,9 @@
 ### meta-analysis function
 ### Function 1
 
-aa0<-transcript_single_analysis_nocovout(study_path="/home/jupyter/workspaces/cadrvas/result/cad_185k_CAD_chr22.RData",
-grouping_path="/home/jupyter/workspaces/cadrvas/annotation/AoU_250K_exome_annotation_VEP105_chr22.vcf.gz.hclof_noflag_POPMAX0.001.RData",test="Burden",
-min_study_cmac=1,min_meta_cmac=20,use.anytranscript=T,combine.pval=T)
+#aa0<-transcript_single_analysis_nocovout(study_path="/home/jupyter/workspaces/cadrvas/result/cad_185k_CAD_chr22.RData",
+#grouping_path="/home/jupyter/workspaces/cadrvas/annotation/AoU_250K_exome_annotation_VEP105_chr22.vcf.gz.hclof_noflag_POPMAX0.001.RData",test="Burden",
+#min_study_cmac=1,min_meta_cmac=20,use.anytranscript=T,combine.pval=T)
 
 transcript_single_analysis_nocovout<-function(study_path=study_path,
                                    grouping_path=grouping_path,test=c("Burden"),
