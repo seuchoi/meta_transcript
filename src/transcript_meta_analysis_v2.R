@@ -53,7 +53,7 @@ transcript_meta_analysis_ver2<-function(study_path_vector=study_path_vector,
 ## start gene level
    for(group in groupings){#(1)#
     outnums <- c(1,seq(0,n__groupings,by=10),n__groupings)    # ???????
-    print(num)
+    #print(num)
     if(num %in% outnums){
        cat('Busy with group', group, 'which is', num, 'out of', n__groupings, '...\n')
     }
@@ -66,7 +66,7 @@ transcript_meta_analysis_ver2<-function(study_path_vector=study_path_vector,
 
     if(length(transcripts)>0){ #(2)#
       for(tt in 1:length(transcripts)){ #(3)#
-         print(tt)
+         #print(tt)
          transID <- transcripts[tt]
          n_studies_effective <- NA
          variant.id <- n.alts <- NULL
@@ -140,7 +140,7 @@ transcript_meta_analysis_ver2<-function(study_path_vector=study_path_vector,
 
            n.site <- n.variants <- length(variant.list)
            out$n.site <- n.site
-           print(length(variant.list))
+           #print(length(variant.list))
 
          # Reconstruct variant and covariance matrix
            U <- matrix(0, n.variants, 1, dimnames=list(variant.list, 'Score'))
