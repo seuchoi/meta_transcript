@@ -49,7 +49,8 @@ transcript_single_analysis_meta_nocovout<-function(study_path=study_path,test=c(
 
 
 ## start gene level
-   for(group in groupings){#(1)#
+   for(gg in 1:length(groupings)){#(1)#
+    group<-groupings[gg]
     outnums <- c(1,seq(0,n__groupings,by=10),n__groupings)    # ???????
     #print(num)
     if(num %in% outnums){
@@ -92,7 +93,7 @@ transcript_single_analysis_meta_nocovout<-function(study_path=study_path,test=c(
         U.sum<-sum(U.list,na.rm=T)
         V.sum<-sum(V.list,na.rm=T)
 
-        out <- data.frame(group, transcript=transID, n_studies_effective=sum(n_studies_effective),cMAC=sum(n.alt.list), stringsAsFactors=F)
+        out <- data.frame(group, transcript=transID, n_studies_effective=sum(n_studies_effective,na.rm=T),cMAC=sum(n.alt.list,na.rm=T), stringsAsFactors=F)
         colnames(out) <- c("Group", "Transcript","n.studies.contributing", "cMAC")
         nsites<-data.frame(t(n.site.list))
         colnames(nsites)<-paste0("n.sites.",1:length(n.site.list))
