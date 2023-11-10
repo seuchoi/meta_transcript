@@ -67,7 +67,7 @@ transcript_cross_annot_meta<-function(study_path=study_path,test=c("Burden"),
         cauchy.result<-rbind(cauchy.result,cauchy.result1)
         }
     result[["Cauchy.result"]]<- cauchy.result
-
+    names(result)[1:n_studies]<-paste0("mask",c(1:n_studies))
     return(result)
   }
 
