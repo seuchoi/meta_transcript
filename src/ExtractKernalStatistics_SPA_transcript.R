@@ -6,9 +6,9 @@ testVariantSet_ExtractKernelStatistics_ScoresAndCovarianceMatrices_Sean <- funct
        
                 
         # Check for use.SPA, which is not yet supported
-        if(Use.SPA){
-                stop("SPA not yet implemented for ExtractKernelStatistics function. Stopping.")
-        }
+        #if(Use.SPA){
+        #        stop("SPA not yet implemented for ExtractKernelStatistics function. Stopping.")
+        #}
 
 	# Modify var.info so output is in chr:pos:ref:alt format and can be compared across studies
         var.id.name <- paste0(var.info$chr, ":", var.info$pos, ":", var.info$ref, ":", var.info$alt)
