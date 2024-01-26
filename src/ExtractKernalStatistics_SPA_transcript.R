@@ -196,7 +196,7 @@ testVariantSet_ExtractKernelStatistics_ScoresAndCovarianceMatrices_Sean <- funct
 testVariantSet_Sean <- function( nullmod, G, weights, freq, use.weights=F, var.info,
                             test = c("Burden", "SKAT", "fastSKAT", "SMMAT", "fastSMMAT", "SKATO", "SKAT_SAIGEGENEplus", "ExtractKernelStatistics"),
                             burden.test = c("Score","Score.SPA"), collapse = FALSE, recessive=FALSE, recessive.model = c("strict", "putative"),
-                            vc.type = "regular weighted", vc.test=c("Score","Score.SPA"), SAIGEGENEplus_collapse_threshold=10,grp=gr[i],
+                            vc.type = "regular weighted", vc.test=c("Score","Score.SPA"), SAIGEGENEplus_collapse_threshold=10,grp=grp,
                             neig = 200, ntrace = 500,
                             rho = seq(from = 0, to = 1, by = 0.1)){
                            # pval.method = c("davies", "kuonen", "liu"),
@@ -271,7 +271,206 @@ testVariantSet_Sean <- function( nullmod, G, weights, freq, use.weights=F, var.i
         	Use.SPA <- T
         }
 	    out <- testVariantSet_ExtractKernelStatistics_ScoresAndCovarianceMatrices_Sean(nullmod, G, weights, var.info, neig = Inf, ntrace = Inf, Use.SPA=Use.SPA, freq=freq,
-                                                                                       SAIGEGENEplus_collapse_threshold=SAIGEGENEplus_collapse_threshold,grp=gr[i])
+                                                                                       SAIGEGENEplus_collapse_threshold=SAIGEGENEplus_collapse_threshold,grp=grp)
     }
     return(out)
 }
+
+
+
+
+
+
+setGeneric("assocTestAggregate_Sean", function(gdsobj, ...) standardGeneric("assocTestAggregate_Sean"))
+
+match.arg_Sean <- function(test) {
+    if (length(test) > 1) test <- NULL
+    match.arg(test, choices=c("Burden", "SKAT", "fastSKAT", "SMMAT", "fastSMMAT", "SKATO", "SKAT_SAIGEGENEplus", "ExtractKernelStatistics"))
+}
+
+setMethod("assocTestAggregate_Sean",
+          "SeqVarIterator",
+          function(gdsobj, null.model, AF.max=1, MAC.max=Inf, use.weights=F,
+                   weight.beta=c(1,1), weight.user=NULL,
+                   test=c("Burden", "SKAT", "fastSKAT", "SMMAT", "SKATO", "SKAT_SAIGEGENEplus", "ExtractKernelStatistics"),
+                   burden.test=c("Score", "Score.SPA"), collapse=FALSE, recessive=F, recessive.model=c("strict", "putative"),
+                   vc.test=c("Score", "Score.SPA"), vc.type="regular weighted", SAIGEGENEplus_collapse_threshold=10,grp=gr[i],
+                   # pval.method=c("davies", "kuonen", "liu"),
+                   neig = 200, ntrace = 500,
+                   rho = seq(from = 0, to = 1, by = 0.1),
+                   sparse=TRUE, imputed=FALSE,
+                   male.diploid=TRUE, genome.build=c("hg19", "hg38"),
+                   verbose=TRUE) {
+
+              # check argument values
+              test <- match.arg_Sean(test)
+              burden.test <- match.arg(burden.test)
+              # pval.method <- match.arg(pval.method)
+
+              # don't use sparse matrices for imputed dosages
+              if (imputed) sparse <- FALSE
+
+              # coerce null.model if necessary
+              if (sparse) null.model <- GENESIS:::.nullModelAsMatrix(null.model)
+
+              # filter samples to match null model
+              sample.index <- GENESIS:::.setFilterNullModel(gdsobj, null.model, verbose=verbose)
+
+              # do we need to match on alleles?
+              match.alleles <- any(c("ref", "alt") %in% names(mcols(currentRanges(gdsobj))))
+
+              # check ploidy
+              if (SeqVarTools:::.ploidy(gdsobj) == 1) male.diploid <- FALSE
+
+              # results
+              res <- list()
+              res.var <- list()
+              if(test == "ExtractKernelStatistics"){
+                  res.covariance <- list()
+              }
+
+              i <- 1
+              n.iter <- length(variantFilter(gdsobj))
+              set.messages <- ceiling(n.iter / 100) # max messages = 100
+              iterate <- TRUE
+              while (iterate) {
+                  var.info <- variantInfo(gdsobj, alleles=match.alleles, expanded=TRUE)
+
+                  if (!imputed) {
+                      geno <- expandedAltDosage(gdsobj, use.names=FALSE, sparse=sparse)[sample.index,,drop=FALSE]
+                  } else {
+                      geno <- imputedDosage(gdsobj, use.names=FALSE)[sample.index,,drop=FALSE]
+                  }
+
+                  if (match.alleles) {
+                      index <- GENESIS:::.matchAlleles(gdsobj, var.info)
+                      var.info <- var.info[index,,drop=FALSE]
+                      geno <- geno[,index,drop=FALSE]
+                  } else {
+                      index <- NULL
+                  }
+
+                  # number of non-missing samples
+                  # n.obs <- colSums(!is.na(geno))
+                  n.obs <- GENESIS:::.countNonMissing(geno, MARGIN = 2)
+
+                  # allele frequency
+                  #freq <- GENESIS:::.alleleFreq(gdsobj, geno, variant.index=index, sample.index=sample.index,
+                  #                    male.diploid=male.diploid, genome.build=genome.build)
+                  freq <- GENESIS:::.alleleFreq(geno) ## added Oct/6/2023
+                  # filter monomorphic variants
+                  keep <- GENESIS:::.filterMonomorphic(geno, count=n.obs, freq=freq$freq, imputed=imputed)
+
+                  # exclude variants with freq > max & MAC > max
+                  keep <-  keep & freq$freq <= AF.max & freq$MAC <= MAC.max
+                  if (!all(keep)) {
+                      var.info <- var.info[keep,,drop=FALSE]
+                      geno <- geno[,keep,drop=FALSE]
+                      n.obs <- n.obs[keep]
+                      freq <- freq[keep,,drop=FALSE]
+                  }
+
+                  # weights
+                  if (is.null(weight.user)) {
+                      # Beta weights
+                      weight <- GENESIS:::.weightFromFreq(freq$freq, weight.beta)
+                  } else {
+                      # user supplied weights
+                      weight <- currentVariants(gdsobj)[[weight.user]][expandedVariantIndex(gdsobj)]
+                      if (!is.null(index)) weight <- weight[index]
+                      weight <- weight[keep]
+
+                      weight0 <- is.na(weight) | weight == 0
+                      if (any(weight0)) {
+                          keep <- !weight0
+                          var.info <- var.info[keep,,drop=FALSE]
+                          geno <- geno[,keep,drop=FALSE]
+                          n.obs <- n.obs[keep]
+                          freq <- freq[keep,,drop=FALSE]
+                          weight <- weight[keep]
+                      }
+                  }
+
+                  # number of variant sites
+                  n.site <- length(unique(var.info$variant.id))
+
+                  # number of alternate alleles
+                  n.alt <- sum(geno, na.rm=TRUE)
+
+                  # number of samples with observed alternate alleles > 0
+                  n.sample.alt <- sum(rowSums(geno, na.rm=TRUE) >= 0.5)
+
+                  res[[i]] <- data.frame(n.site, n.alt, n.sample.alt)
+                  res.var[[i]] <- cbind(var.info, n.obs, freq, weight)
+                  if(test == "ExtractKernelStatistics"){
+                      cat('ExtractKernelStatistics number', i, '\n')
+                      res.covariance[[i]] <- NA
+                  }
+		  not_run <- FALSE
+                  if (n.site > 0) {
+                      # mean impute missing values, unless it is collapsing test in which case we will impute to zero
+		      if(collapse){
+                          if (any(n.obs < nrow(geno))) {
+                                geno <- zeroImpute_Sean(geno, freq$freq)
+                          }
+                      }else{
+                          if (any(n.obs < nrow(geno))) {
+                                geno <- meanImpute_Sean(geno, freq$freq)
+                          }
+                      }
+
+		      # if strict recessive analysis code for that
+		      if(recessive){
+			  if(recessive.model=="strict"){
+		          	geno <- recessive_strict_coding_Sean(geno)
+			  	n.alt <- sum(geno, na.rm=TRUE)
+			  	n.sample.alt <- sum(rowSums(geno, na.rm=TRUE) >= 0.75)
+			  }else{
+				geno <- geno/2
+			        n.alt <- n.sample.alt <- sum(rowSums(geno, na.rm=TRUE) >= 0.75)
+			  }
+			  res[[i]][2] <- n.alt
+			  res[[i]][3] <- n.sample.alt
+			  if(n.alt==0){
+				  not_run <- TRUE
+			  }
+		      }
+
+                      if(!not_run){
+			   #do the test
+			   assoc <- testVariantSet_Sean(null.model, G=geno, use.weights=use.weights, weights=weight, freq=freq,
+                                              test=test, burden.test=burden.test, collapse=collapse, recessive=recessive, recessive.model=recessive.model,
+					      var.info=var.info,
+                                              vc.test=vc.test, vc.type=vc.type, SAIGEGENEplus_collapse_threshold=SAIGEGENEplus_collapse_threshold,
+                                              neig = neig, ntrace = ntrace,
+                                              rho=rho)
+                                              # pval.method=pval.method)
+                      	   if(test == 'ExtractKernelStatistics'){
+                           	     	res[[i]] <- cbind(res[[i]], assoc[['burden_out']], stringsAsFactors=FALSE)
+                                	res.var[[i]]$variant.id <- paste0(res.var[[i]]$chr, ":", res.var[[i]]$pos, ":", res.var[[i]]$ref, ":", res.var[[i]]$alt)
+                                	assoc[['single_var_out']]$variant.id <- rownames(assoc[['single_var_out']])
+                                	res.var[[i]] <- merge(res.var[[i]], assoc[['single_var_out']], by="variant.id", all=T)
+                                	res.covariance[[i]] <- assoc[['covariance_matrix']]
+                      	   }else{
+                            		res[[i]] <- cbind(res[[i]], assoc, stringsAsFactors=FALSE)
+                      	   }
+		      }
+                  }
+
+                  if (verbose & n.iter > 1 & i %% set.messages == 0) {
+                      message(paste("Iteration", i , "of", n.iter, "completed"))
+                  }
+                  i <- i + 1
+                  iterate <- SeqVarTools:::iterateFilter(gdsobj, verbose=F)
+              }
+              if(test == 'ExtractKernelStatistics'){
+                  res <- list(results=dplyr::bind_rows(res), variantInfo=res.var, covariance_matrix=res.covariance)
+              }else{
+                  res <- list(results=dplyr::bind_rows(res), variantInfo=res.var)
+              }
+              out_res <- GENESIS:::.annotateAssoc(gdsobj, res)
+              if(test == 'ExtractKernelStatistics'){
+                  names(out_res$covariance_matrix) <- names(out_res$variantInfo)
+              }
+              return(out_res)
+          })
