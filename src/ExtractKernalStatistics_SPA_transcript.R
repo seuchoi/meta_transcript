@@ -294,7 +294,7 @@ setMethod("assocTestAggregate_Sean",
                    weight.beta=c(1,1), weight.user=NULL,
                    test=c("Burden", "SKAT", "fastSKAT", "SMMAT", "SKATO", "SKAT_SAIGEGENEplus", "ExtractKernelStatistics"),
                    burden.test=c("Score", "Score.SPA"), collapse=FALSE, recessive=F, recessive.model=c("strict", "putative"),
-                   vc.test=c("Score", "Score.SPA"), vc.type="regular weighted", SAIGEGENEplus_collapse_threshold=10,grp=gr[[i]],
+                   vc.test=c("Score", "Score.SPA"), vc.type="regular weighted", SAIGEGENEplus_collapse_threshold=10,grp=gr,
                    # pval.method=c("davies", "kuonen", "liu"),
                    neig = 200, ntrace = 500,
                    rho = seq(from = 0, to = 1, by = 0.1),
@@ -443,7 +443,7 @@ setMethod("assocTestAggregate_Sean",
 					      var.info=var.info,
                                               vc.test=vc.test, vc.type=vc.type, SAIGEGENEplus_collapse_threshold=SAIGEGENEplus_collapse_threshold,
                                               neig = neig, ntrace = ntrace,
-                                              rho=rho,grp=grp)
+                                              rho=rho,grp=grp[[i]])
                                               # pval.method=pval.method)
                       	   if(test == 'ExtractKernelStatistics'){
                            	     	res[[i]] <- cbind(res[[i]], assoc[['burden_out']], stringsAsFactors=FALSE)
