@@ -355,9 +355,9 @@ setMethod("assocTestAggregate_Sean",
                   n.obs <- GENESIS:::.countNonMissing(geno, MARGIN = 2)
 
                   # allele frequency
-                  #freq <- GENESIS:::.alleleFreq(gdsobj, geno, variant.index=index, sample.index=sample.index,
-                  #                    male.diploid=male.diploid, genome.build=genome.build)
-                  freq <- GENESIS:::.alleleFreq(geno) ## added Oct/6/2023
+                  freq <- GENESIS:::.alleleFreq(gdsobj, geno, variant.index=index, sample.index=sample.index,
+                                      male.diploid=male.diploid, genome.build=genome.build)
+                  #freq <- GENESIS:::.alleleFreq(geno) ## added Oct/6/2023
                   # filter monomorphic variants
                   keep <- GENESIS:::.filterMonomorphic(geno, count=n.obs, freq=freq$freq, imputed=imputed)
 
