@@ -1,7 +1,7 @@
 ####
 #### 1) add SPA and 2)transcript analysis
 testVariantSet_ExtractKernelStatistics_ScoresAndCovarianceMatrices_Sean <- function(nullmod, G, weights, var.info, neig = Inf, ntrace = Inf, Use.SPA=F, freq,
-                                                                                       SAIGEGENEplus_collapse_threshold=1){
+                                                                                       SAIGEGENEplus_collapse_threshold=1,grp){
 
        
                 
@@ -91,7 +91,7 @@ testVariantSet_ExtractKernelStatistics_ScoresAndCovarianceMatrices_Sean <- funct
         #diag(V) <- V_tilde
         #V <- V / r_tilde
 
-        allvarlist<-gr[[i]]
+        allvarlist<-grp
         transcriptids<-unique(allvarlist$TranscriptID)
         av.transcriptids<-NULL
         ### run per transcript
@@ -271,7 +271,7 @@ testVariantSet_Sean <- function( nullmod, G, weights, freq, use.weights=F, var.i
         	Use.SPA <- T
         }
 	    out <- testVariantSet_ExtractKernelStatistics_ScoresAndCovarianceMatrices_Sean(nullmod, G, weights, var.info, neig = Inf, ntrace = Inf, Use.SPA=Use.SPA, freq=freq,
-                                                                                       SAIGEGENEplus_collapse_threshold=SAIGEGENEplus_collapse_threshold)
+                                                                                       SAIGEGENEplus_collapse_threshold=SAIGEGENEplus_collapse_threshold,grp=gr[i])
     }
     return(out)
 }
