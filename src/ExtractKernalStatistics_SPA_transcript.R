@@ -196,7 +196,7 @@ testVariantSet_ExtractKernelStatistics_ScoresAndCovarianceMatrices_Sean <- funct
 testVariantSet_Sean <- function( nullmod, G, weights, freq, use.weights=F, var.info,
                             test = c("Burden", "SKAT", "fastSKAT", "SMMAT", "fastSMMAT", "SKATO", "SKAT_SAIGEGENEplus", "ExtractKernelStatistics"),
                             burden.test = c("Score","Score.SPA"), collapse = FALSE, recessive=FALSE, recessive.model = c("strict", "putative"),
-                            vc.type = "regular weighted", vc.test=c("Score","Score.SPA"), SAIGEGENEplus_collapse_threshold=10,
+                            vc.type = "regular weighted", vc.test=c("Score","Score.SPA"), SAIGEGENEplus_collapse_threshold=10,grp=gr[i],
                             neig = 200, ntrace = 500,
                             rho = seq(from = 0, to = 1, by = 0.1)){
                            # pval.method = c("davies", "kuonen", "liu"),
