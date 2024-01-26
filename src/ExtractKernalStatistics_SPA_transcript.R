@@ -467,7 +467,7 @@ setMethod("assocTestAggregate_Sean",
                   res <- list(results=dplyr::bind_rows(res), variantInfo=res.var, covariance_matrix=res.covariance)
                   names(res$variantInfo) <- names(grp)
                   names(res$covariance_matrix) <- names(grp)
-                  res_out<-res
+                  out_res<-res
               }else{
                   res <- list(results=dplyr::bind_rows(res), variantInfo=res.var)
                   out_res <- GENESIS:::.annotateAssoc(gdsobj, res)
