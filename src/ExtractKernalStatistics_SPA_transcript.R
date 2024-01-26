@@ -465,8 +465,8 @@ setMethod("assocTestAggregate_Sean",
               }
               if(test == 'ExtractKernelStatistics'){
                   res <- list(results=dplyr::bind_rows(res), variantInfo=res.var, covariance_matrix=res.covariance)
-                  names(res$variantInfo) <- names(gr)
-                  names(res$covariance_matrix) <- names(gr)
+                  names(res$variantInfo) <- names(grp)
+                  names(res$covariance_matrix) <- names(grp)
                   res_out<-res
               }else{
                   res <- list(results=dplyr::bind_rows(res), variantInfo=res.var)
