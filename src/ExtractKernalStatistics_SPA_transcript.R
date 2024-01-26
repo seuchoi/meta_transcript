@@ -578,7 +578,7 @@ kernell_variance_component_v2<-function(gdsfile, groupfile, phenfile, ID_col, nu
                         weights.found<-TRUE
                 }
         }else{
-                gr<-aggregateGRangesList(annot)[1:10]
+                gr<-aggregateGRangesList(annot)
         }
 
         # Create the iterator
