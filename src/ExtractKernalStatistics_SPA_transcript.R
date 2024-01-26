@@ -91,7 +91,7 @@ testVariantSet_ExtractKernelStatistics_ScoresAndCovarianceMatrices_Sean <- funct
         #diag(V) <- V_tilde
         #V <- V / r_tilde
 
-        allvarlist<-grp
+        allvarlist<-grp[[1]]
         transcriptids<-unique(allvarlist$TranscriptID)
         av.transcriptids<-NULL
         ### run per transcript
@@ -184,7 +184,7 @@ testVariantSet_ExtractKernelStatistics_ScoresAndCovarianceMatrices_Sean <- funct
         }else{}
         }
         burden_out$transcript<-c("all",av.transcriptids)
-        
+        burden_out$genename<-names(grp)
         out <- list(NULL)
         out[['burden_out']] <- burden_out
         out[['single_var_out']] <- single_var_out
@@ -443,7 +443,7 @@ setMethod("assocTestAggregate_Sean",
 					      var.info=var.info,
                                               vc.test=vc.test, vc.type=vc.type, SAIGEGENEplus_collapse_threshold=SAIGEGENEplus_collapse_threshold,
                                               neig = neig, ntrace = ntrace,
-                                              rho=rho,grp=grp[[i]])
+                                              rho=rho,grp=grp[i])
                                               # pval.method=pval.method)
                       	   if(test == 'ExtractKernelStatistics'){
                            	     	res[[i]] <- cbind(res[[i]], assoc[['burden_out']], stringsAsFactors=FALSE)
@@ -465,12 +465,12 @@ setMethod("assocTestAggregate_Sean",
               }
               if(test == 'ExtractKernelStatistics'){
                   res <- list(results=dplyr::bind_rows(res), variantInfo=res.var, covariance_matrix=res.covariance)
+                  names(res$variantInfo) <- names(gr)
+                  names(res$covariance_matrix) <- names(gr)
+                  res_out<-res
               }else{
                   res <- list(results=dplyr::bind_rows(res), variantInfo=res.var)
-              }
-              out_res <- GENESIS:::.annotateAssoc(gdsobj, res)
-              if(test == 'ExtractKernelStatistics'){
-                  names(out_res$covariance_matrix) <- names(out_res$variantInfo)
+                  out_res <- GENESIS:::.annotateAssoc(gdsobj, res)
               }
               return(out_res)
           })
@@ -578,7 +578,7 @@ kernell_variance_component_v2<-function(gdsfile, groupfile, phenfile, ID_col, nu
                         weights.found<-TRUE
                 }
         }else{
-                gr<-aggregateGRangesList(annot)
+                gr<-aggregateGRangesList(annot)[1:10]
         }
 
         # Create the iterator
@@ -593,7 +593,7 @@ kernell_variance_component_v2<-function(gdsfile, groupfile, phenfile, ID_col, nu
                                                  SAIGEGENEplus_collapse_threshold=SAIGEGENEplus_collapse_threshold, weight.beta=c(1,1),gr=gr)
         }else{
                 assoc <- assocTestAggregate_Sean(iterator, nullmod, AF.max=AF.max, MAC.max=MAC.max, test=test, vc.test=vc.test, vc.type=vc.type, collapse = FALSE, verbose=TRUE, use.weight=F,
-                                                 SAIGEGENEplus_collapse_threshold=SAIGEGENEplus_collapse_threshold, weight.beta=weight.beta),gr=gr)
+                                                 SAIGEGENEplus_collapse_threshold=SAIGEGENEplus_collapse_threshold, weight.beta=weight.beta,gr=gr)
         }
 
         # Save results
