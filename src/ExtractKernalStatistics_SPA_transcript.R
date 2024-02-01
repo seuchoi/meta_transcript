@@ -22,6 +22,7 @@ testVariantSet_ExtractKernelStatistics_ScoresAndCovarianceMatrices_Sean <- funct
               	burden <- colSums(t(G) * weights)
                 G <- t(t(G) * weights)
         }
+        colnames(G) <- var.id.name # after tranformation colname disappeared! 02/01/2024
 
 
 	if(is.null(nullmod$RSS0)){
@@ -94,6 +95,8 @@ testVariantSet_ExtractKernelStatistics_ScoresAndCovarianceMatrices_Sean <- funct
         allvarlist<-grp[[1]]
         transcriptids<-unique(allvarlist$TranscriptID)
         av.transcriptids<-NULL
+        
+        
         ### run per transcript
         for (tp in 1:length(transcriptids)){
         transcriptid<-transcriptids[tp]
