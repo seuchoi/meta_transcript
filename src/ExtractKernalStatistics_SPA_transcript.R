@@ -441,7 +441,7 @@ setMethod("assocTestAggregate_Sean",
                       res.covariance[[i]] <- NA
                   }
 		  not_run <- FALSE
-                  if (n.site > 0) {
+                  if (n.site[1] > 0) {
                       # mean impute missing values, unless it is collapsing test in which case we will impute to zero
 		      if(collapse){
                           if (any(n.obs < nrow(geno))) {
