@@ -429,9 +429,13 @@ setMethod("assocTestAggregate_Sean",
                     n.sample.alt1 <- sum(rowSums(geno[,colnums,drop=FALSE], na.rm=TRUE) >= 0.5)
                     n.sample.alt<-c(n.sample.alt,n.sample.alt1)
                     }
-
-                  res[[i]] <- data.frame(n.site, n.alt, n.sample.alt)
-                  res.var[[i]] <- cbind(var.info, n.obs, freq, weight)
+                    
+                    # keep the site>0 transcript
+                    countout<-data.frame(n.site, n.alt, n.sample.alt)
+                    avtranscripts<-transcriptids[which(n.site[2:length(n.site)]>0)]    
+                    grp[[1]]<-subset(grp[[1]],TranscriptID %in% avtranscripts)
+                    res[[i]] <-subset(countout,n.site>0) 
+                    res.var[[i]] <- cbind(var.info, n.obs, freq, weight)
                   if(test == "ExtractKernelStatistics"){
                       cat('ExtractKernelStatistics number', i, '\n')
                       res.covariance[[i]] <- NA
