@@ -407,7 +407,7 @@ setMethod("assocTestAggregate_Sean",
                   var.info$var.id<-paste(var.info$chr,var.info$pos,var.info$ref,var.info$alt,sep=":")
                   
                   ## trnscript
-                  allvarlist<-grp[[1]]
+                  allvarlist<-grp[[i]]
                   transcriptids<-unique(allvarlist$TranscriptID)
                   av.transcriptids<-NULL        
                   
@@ -433,7 +433,7 @@ setMethod("assocTestAggregate_Sean",
                     # keep the site>0 transcript
                     countout<-data.frame(n.site, n.alt, n.sample.alt)
                     avtranscripts<-transcriptids[which(n.site[2:length(n.site)]>0)]    
-                    grp[[1]]<-subset(grp[[1]],TranscriptID %in% avtranscripts)
+                    grp[[i]]<-subset(grp[[i]],TranscriptID %in% avtranscripts)
                     res[[i]] <-subset(countout,n.site>0) 
                     res.var[[i]] <- cbind(var.info, n.obs, freq, weight)
                   if(test == "ExtractKernelStatistics"){
