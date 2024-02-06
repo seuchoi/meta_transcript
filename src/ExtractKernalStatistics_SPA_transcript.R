@@ -403,6 +403,33 @@ setMethod("assocTestAggregate_Sean",
                   # number of samples with observed alternate alleles > 0
                   n.sample.alt <- sum(rowSums(geno, na.rm=TRUE) >= 0.5)
 
+                  # creat variant ids
+                  var.info$var.id<-paste(var.info$chr,var.info$pos,var.info$ref,var.info$alt,sep=":")
+                  
+                  ## trnscript
+                  allvarlist<-grp[[1]]
+                  transcriptids<-unique(allvarlist$TranscriptID)
+                  av.transcriptids<-NULL        
+                  
+                  ### run per transcript
+                    for (tp in 1:length(transcriptids)){
+                    print(tp)
+                    transcriptid<-transcriptids[tp]
+                    subvarlist<-subset(allvarlist,TranscriptID==transcriptid)
+                    sub.var.id.name <- paste0(subvarlist@seqnames@values, ":", subvarlist@ranges@start, ":", subvarlist$ref, ":", subvarlist$alt)
+                    av.sub.var.id<- var.info$var.id[var.info$var.id %in% sub.var.id.name]
+                    colnums<-which(var.info$var.id %in% sub.var.id.name)
+                    # number of variant sites
+                    n.site1<-length(av.sub.var.id)
+                    n.site<-c(n.site,n.site1)
+                    # number of alternate alleles
+                    n.alt1<- sum(geno[,colnums,drop=FALSE], na.rm=TRUE)
+                    n.alt<-c(n.alt,n.alt1)
+                    # number of samples with observed alternate alleles > 0
+                    n.sample.alt1 <- sum(rowSums(geno[,colnums,drop=FALSE], na.rm=TRUE) >= 0.5)
+                    n.sample.alt<-c(n.sample.alt,n.sample.alt1)
+                    }
+
                   res[[i]] <- data.frame(n.site, n.alt, n.sample.alt)
                   res.var[[i]] <- cbind(var.info, n.obs, freq, weight)
                   if(test == "ExtractKernelStatistics"){
