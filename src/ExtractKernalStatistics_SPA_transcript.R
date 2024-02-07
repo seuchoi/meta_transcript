@@ -413,7 +413,7 @@ setMethod("assocTestAggregate_Sean",
                   
                   ### run per transcript
                     for (tp in 1:length(transcriptids)){
-                    print(tp)
+                    #print(tp)
                     transcriptid<-transcriptids[tp]
                     subvarlist<-subset(allvarlist,TranscriptID==transcriptid)
                     sub.var.id.name <- paste0(subvarlist@seqnames@values, ":", subvarlist@ranges@start, ":", subvarlist$ref, ":", subvarlist$alt)
@@ -721,7 +721,7 @@ kernell_variance_component_aou<-function(gdsfile, groupfile, phenfile, ID_col, n
 
         # Annotation file
         annot<-get(load(groupfile))
-        annot <- as.data.frame(annot)
+        annot <- as.data.frame(annot)[1:10]
         #class(annot$chr) <- "numeric"
         class(annot$pos) <- "numeric"
 
