@@ -721,7 +721,7 @@ kernell_variance_component_aou<-function(gdsfile, groupfile, phenfile, ID_col, n
 
         # Annotation file
         annot<-get(load(groupfile))
-        annot <- as.data.frame(annot)[1:10]
+        annot <- as.data.frame(annot)
         #class(annot$chr) <- "numeric"
         class(annot$pos) <- "numeric"
 
