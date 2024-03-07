@@ -96,7 +96,7 @@ transcript_single_analysis_meta_nocovout_spa<-function(study_path=study_path,tes
         V.sum<-sum(V.list,na.rm=T)
 
         out <- data.frame(group, transcript=transID, n_studies_effective=sum(n_studies_effective,na.rm=T),cMAC=sum(n.alt.list,na.rm=T),nCarrier=sum(n.sample.alt.list,na.rm=T), stringsAsFactors=F)
-        colnames(out) <- c("Group", "Transcript","n.studies.contributing", "cMAC")
+        colnames(out) <- c("Group", "Transcript","n.studies.contributing", "cMAC","nCarrier")
         nsites<-data.frame(t(n.site.list))
         colnames(nsites)<-paste0("n.sites.",1:length(n.site.list))
         out<-cbind(out,nsites)
