@@ -25,7 +25,7 @@ transcript_cross_annot_meta<-function(study_path=study_path,test=c("Burden"),
    groupings <- lapply(study_list, function(x) unique(x$Group) )
    groupings <- do.call(c, groupings)
    groupings <- unique(groupings)
-   length(groupings)   # 1081
+   length(groupings)   # 1081 
 
 ## ---------------------------------------------------------------------
 ## Cycle over Gene groupings
@@ -37,7 +37,8 @@ transcript_cross_annot_meta<-function(study_path=study_path,test=c("Burden"),
    cauchy.result<-NULL
 ## start gene level
 ##   for(group in groupings[1:10]){#(1)#
-    for (gg in 1:length(groupings)){
+    #for (gg in 1:length(groupings)){
+    for (gg in 1:587){
     group<-groupings[gg]
     outnums <- c(1,seq(0,n__groupings,by=10),n__groupings)    # ???????
     #print(num)
@@ -46,10 +47,10 @@ transcript_cross_annot_meta<-function(study_path=study_path,test=c("Burden"),
     }
     num <- num + 1
 
-    gpvalue<-NULL
+    gpvalue<-gpvalue0<-NULL
     pvalues<-"Burden.pval"
     for(i in 1:n_studies){   #(4)#
-
+        gdata <- NULL
         gdata <- subset(study_list[[i]],Group==group & cMAC>min_study_cmac)
         if(gg==1){
         result[[i]]<-gdata
