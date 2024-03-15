@@ -59,12 +59,12 @@ testVariantSet_ExtractKernelStatistics_ScoresAndCovarianceMatrices_Sean <- funct
         out[out$SPA.Score.Variance==0,'SPA.pval'] <- outnull[which(out$SPA.Score.Variance==0),'Score.pval']
         #out <- out[,c("Score", "SPA.Score.Variance", "SPA.pval", "Est", "Est.SE")]
         colnames(out)[c(5,6)] <- c("Raw.Est", "Raw.Est.SE")
-        single_var_out <- out
-        colnames(V)<-rownames(V)<-rownames(single_var_out)<-var.id.name # added
+        single_var_out_all <- out
+        colnames(V)<-rownames(V)<-rownames(single_var_out_all)<-var.id.name # added
 
         # Compute SPA adjusted Sum of Variances (SAIGE-GENE, AJHG), we will use this for SKAT test later
-        V_tilde <- single_var_out$SPA.Score.Variance
-        Vsum_tilde <- sum(single_var_out$SPA.Score.Variance)
+        V_tilde <- single_var_out_all$SPA.Score.Variance
+        Vsum_tilde <- sum(single_var_out_all$SPA.Score.Variance)
         
         # We will also compute a burden test for all markers
         out <- GENESIS:::.testGenoSingleVarScore(burdentilde, G = burden, resid = nullmod$resid, RSS0 = nullmod$RSS0)
@@ -190,7 +190,7 @@ testVariantSet_ExtractKernelStatistics_ScoresAndCovarianceMatrices_Sean <- funct
         burden_out$genename<-names(grp)
         out <- list(NULL)
         out[['burden_out']] <- burden_out
-        out[['single_var_out']] <- single_var_out
+        out[['single_var_out']] <- single_var_out_all
         out[['covariance_matrix']] <- V
         return(out)
 }
