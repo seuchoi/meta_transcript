@@ -75,7 +75,7 @@ transcript_single_analysis_meta_nocovout_spa<-function(study_path=study_path,tes
       # creating sv.list and V.list
       for(i in 1:n_studies){   #(4)#
 
-          trans_results <- subset(study_list[[i]]$results,genename==group & transcript==transID & n.alt>min_study_cmac)
+          trans_results <- subset(study_list[[i]]$results,genename==group & transcript==transID & n.alt>=min_study_cmac)
           if(nrow(trans_results)>0){
           n_studies_effective<-c(n_studies_effective,1)
           U.list<-c(U.list,trans_results$Burden_Score)
