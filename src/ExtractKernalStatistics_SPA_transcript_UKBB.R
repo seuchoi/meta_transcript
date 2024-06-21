@@ -634,7 +634,7 @@ kernell_variance_component_ukbb<-function(gdsfile, groupfile, phenfile, ID_col, 
         nullmod<-get(load(nullfile))
 
         # check test
-        if(nullmod$family$family=="gaussian" & vc.test=="Score.SPA"){
+        if(nullmod$model$family$family=="gaussian" & vc.test=="Score.SPA"){
         message("SPA is not applicable to gaussian model. Score.SPA is changed to Score")            
         vc.test="Score"
         }
