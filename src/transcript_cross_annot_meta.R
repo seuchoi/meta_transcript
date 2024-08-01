@@ -37,8 +37,8 @@ transcript_cross_annot_meta<-function(study_path=study_path,test=c("Burden"),
    cauchy.result<-NULL
 ## start gene level
 ##   for(group in groupings[1:10]){#(1)#
-    #for (gg in 1:length(groupings)){
-    for (gg in 1:n__groupings){
+    for (gg in 1:length(groupings)){
+    #for (gg in 1:587){
     group<-groupings[gg]
     outnums <- c(1,seq(0,n__groupings,by=10),n__groupings)    # ???????
     #print(num)
