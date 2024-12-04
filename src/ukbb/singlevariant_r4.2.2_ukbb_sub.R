@@ -16,7 +16,7 @@ outfile=as.character(args[7])
 
 ## load source scripts
 source("UKBB_200KWES_CVD/GENESIS_adaptation_source.R")
-source("meta_transcript/src/ExtractKernalStatistics_SPA_transcript_UKBB.R")
+source("meta_transcript/src/singlevariant_r4.2.2_ukbb.R")
 
 ## perfrom analysis
 singleassoc_varinfo_ukbb(gdsfile=gdsfile,varfile=varfile,phenfile=phenfile,ID_col="scanID",nullfile=nullfile,stest=test,outfile=outfile)
