@@ -1,4 +1,4 @@
-singleassoc_varinfo_ukbb<-function(num=num,gdsfile=gdsfile,varfile=NULL,phenfile=phenfile,ID_col="scanID",nullfile=nullfile,stest=test,outfile=outfile){
+singleassoc_varinfo_ukbb<-function(gdsfile=gdsfile,varfile=NULL,phenfile=phenfile,ID_col="scanID",nullfile=nullfile,stest=test,outfile=outfile){
   gds <- seqOpen(gdsfile, allow.duplicate=T)
   ##### samples
     phen1<-fread(phenfile,header=T,data.table=F,sep="\t")
