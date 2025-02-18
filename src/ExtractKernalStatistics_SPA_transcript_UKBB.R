@@ -628,7 +628,7 @@ kernell_variance_component_ukbb<-function(gdsfile, groupfile, phenfile, ID_col, 
                         weights.found<-TRUE
                 }
         }else{
-                gr<-aggregateGRangesList(annot)[1]
+                gr<-aggregateGRangesList(annot)
         }
 
         # Create the iterator
