@@ -597,7 +597,7 @@ kernell_variance_component_ukbb<-function(gdsfile, groupfile, phenfile, ID_col, 
         combphen<-rbind(phen1,misphen)
         rownames(combphen)<-combphen$sample.id
         combphen2<-combphen[samples,]
-        if(id_int){class(combphen2$sample.id) <- 'integer'}
+        #if(id_int){class(combphen2$sample.id) <- 'integer'}
 
         # Construct a SeqVarData object
         seqData <- SeqVarData(gds, sampleData=AnnotatedDataFrame(combphen2))
