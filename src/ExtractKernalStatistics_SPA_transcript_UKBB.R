@@ -25,6 +25,10 @@ testVariantSet_ExtractKernelStatistics_ScoresAndCovarianceMatrices_Sean <- funct
 	if(is.null(nullmod$RSS0)){
                 nullmod$RSS0 <- as.numeric(crossprod(nullmod$Ytilde))
         }
+        
+        if(is.null(nullmod$resid)){
+                nullmod$resid <- as.numeric(nullmod$fit$resid.PY)
+        }
 
 	# Calculate SKAT statistic
         U <- as.vector(crossprod(G, nullmod$resid)) # WGPY
@@ -624,7 +628,7 @@ kernell_variance_component_ukbb<-function(gdsfile, groupfile, phenfile, ID_col, 
                         weights.found<-TRUE
                 }
         }else{
-                gr<-aggregateGRangesList(annot)
+                gr<-aggregateGRangesList(annot)[1]
         }
 
         # Create the iterator
