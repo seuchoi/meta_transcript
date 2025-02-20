@@ -1,7 +1,7 @@
 args=(commandArgs(TRUE))
 gdsfile=as.character(args[1])
 groupfile=as.character(args[2])
-chunknum=as.numeric(args[3])
+chunknum=args[3]
 phenfile=as.character(args[4])
 ID_col=as.character(args[5])
 nullfile=as.character(args[6])
