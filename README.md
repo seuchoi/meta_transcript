@@ -1,4 +1,4 @@
-# Script for Transcript-Aware Rare Genetic Variant Association Analyses  
+# Transcript-Aware Rare Genetic Variant Association Analyses  
 Example code for running transcript-aware rare variant analyses is in `Analysis_by_steps.R`
 
 
