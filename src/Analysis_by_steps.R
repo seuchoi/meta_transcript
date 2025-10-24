@@ -79,7 +79,7 @@ source("/meta_transcript/src/CCT.R")
     gene0   <- genes[gg]
     result2 <- subset(res1,genename==gene0)
     
-    pvals   <- unique(result2$Burden_SPA.pval)
+    pvals   <- unique(result2$Burden_SPA.pval)  # change to Burden_Score.pval for continuous outcome
     newpval <- CCT(pvals)
     
     result2 <- data.frame(genename=gene0,pval=newpval)
@@ -93,3 +93,4 @@ source("/meta_transcript/src/CCT.R")
   
   
   
+
