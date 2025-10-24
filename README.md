@@ -62,16 +62,16 @@ tar -xvf rpackages4_1_3_aou.tar.gz
     + **group_id**   (e.g., Ensembl Gene ID): "ENSG00000155657" "ENSG00000155657" "ENSG00000155657" "ENSG00000155657" ...
     + **CANONICAL**  (string, "-" for non-canonical, "YES" for canonical): chr  "-" "-" "-" "YES" ...
     + **TranscriptID** (string): "ENST00000342175" "ENST00000342992" "ENST00000359218" "ENST00000589042" ...
-    + `groupfile` should be consistent with specification of `gene_id` and `gene_name`.
+    + `groupfile` must reflect the specified `gene_id` and `gene_name` (either include annotation information for the whole chromosome or pre-specified genes).
 
                                                     
 + `gene_id`    (Optional) Ensembl Gene ID (e.g., "ENSG00000155657"). Set to NULL if you want to run the analysis for the whole chromosome;
   Set to a specific gene ID if you only want to run the analysis for a specific gene not whole chromosome.
-  Note: if `gene_id` and `gene_name` is not NULL, update `groupfile` to include only annotations for the gene that you are interested. 
+  Note: If `gene_id` and `gene_name` are available, update `groupfile` to include only annotations for the target gene.
   
 + `gene_name`  (Optional) gene name (e.g., "TTN"). Set to NULL if you want to run the analysis for the whole chromosome;
   Set to a specific gene name if you only want to run the analysis for a specific gene not whole chromosome.
-  Note: if `gene_id` and `gene_name` is not NULL, update `groupfile` to include only annotations for the gene that you are interested. 
+  Note: If `gene_id` and `gene_name` are available, update `groupfile` to include only annotations for the target gene.
 
 
 
