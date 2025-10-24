@@ -1,6 +1,4 @@
 # Transcript-Aware Rare Genetic Variant Association Analyses  
-Example code for running transcript-aware rare variant analyses is in `Analysis_by_steps.R`
-
 
 Docker file is available at: `us.gcr.io/aou-project-385720/genesis_meta_2.18.0:Sep172024`
 
@@ -78,7 +76,7 @@ tar -xvf rpackages4_1_3_aou.tar.gz
 
 
 
-# Example code   
+# Analysis - Example Code   
 ```
   source("/meta_transcript/src/t_aware_analysis_function.R")
   pheno_name          <- "Cardiomyopathy"           
@@ -94,9 +92,7 @@ tar -xvf rpackages4_1_3_aou.tar.gz
 ```
 
 
-# Run the analysis
-
-## (1) Analysis on the whole chromosome 12:
+## (1) Run analysis on the whole chromosome 12:
 ```
       chr          <- 12                   
       gdsfile      <- "exome_genotype_QCed_chr12.gds"         
@@ -112,7 +108,7 @@ tar -xvf rpackages4_1_3_aou.tar.gz
       )
 ```
 
-## (2) Analysis on 1 gene (TTN from chromosome 2):
+## (2) Run analysis on 1 gene (TTN from chromosome 2):
 ```
       chr          <- 2       
       gdsfile      <- "exome_genotype_QCed_chr2.gds"          
@@ -127,3 +123,6 @@ tar -xvf rpackages4_1_3_aou.tar.gz
         Test_Covar_P_cutoff=Test_Covar_P_cutoff, Model_type=Model_type
       )
 ```
+
+
+Other example code for running transcript-aware rare variant analyses step by step can be found in `src/Analysis_by_steps.R`
