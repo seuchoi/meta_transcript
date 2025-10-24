@@ -87,7 +87,7 @@ tar -xvf rpackages4_1_3_aou.tar.gz
   covars_test         <- c("PC3", "PC4")            
   Model_type          <- "binomial"                 
   Test_Covar_P_cutoff <- 0.05                
-  relatedness         <-  "MyGRM_matrix.RData"     
+  relatedness         <- "MyGRM_matrix.RData"     
   unrelated           <- "unrelated_ID.tsv"         
 ```
 
