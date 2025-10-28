@@ -126,3 +126,14 @@ tar -xvf rpackages4_1_3_aou.tar.gz
 
 
 Other example code for running transcript-aware rare variant analyses step by step can be found in `src/Analysis_by_steps.R`
+
+
+
+
+# Output
+
+A list of two dataframes:
+
++ `**results**`: transcript (including pseudo transcript) specific results. P-values for continuous outcome are in **Burden_Score.pval** column and for binary outcome are in **Burden_SPA.pval**. 
+
++ `**cauchy**`: trascript-aware results (1 p-value per gene).
