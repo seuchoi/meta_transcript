@@ -132,7 +132,7 @@ Other example code for running transcript-aware rare variant analyses step by st
 
 # Output
 
-A list of two dataframes:
+The final outcome with all the results is stored in a file named "Pheno_name_chr_final.RData" (e.g., Cardiomyopathy_chr12_final.RData or Cardiomyopathy_chr12_TTN_final.RData). It contains a list of two dataframes:
 
 + `**results**`: transcript (including pseudo transcript) specific results. P-values for continuous outcome are in **Burden_Score.pval** column and for binary outcome are in **Burden_SPA.pval**. 
 
