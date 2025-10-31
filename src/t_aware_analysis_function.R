@@ -47,7 +47,7 @@ source("/meta_transcript/src/ExtractKernalStatistics_SPA_transcript.R")
 source("/meta_transcript/src/CCT.R")
 
 t_aware_analysis <- function(pheno_name, pheno_file, id_col, outcome_col, covars, covars_test, 
-                             relatedness, unrelated, #out_dir,
+                             relatedness=NULL, unrelated=NULL, #out_dir,
                              chr, gene_id=NULL, gene_name=NULL, gdsfile, groupfile,
 
                              Test_Covar_P_cutoff=0.05, Model_type="binomial"){
@@ -124,3 +124,4 @@ t_aware_analysis <- function(pheno_name, pheno_file, id_col, outcome_col, covars
         
        save(assoc,file=outname_final)
   }
+
