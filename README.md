@@ -31,7 +31,7 @@ tar -xvf rpackages4_1_3_aou.tar.gz
   
 + `Test_Covar_P_cutoff` Significance cut-off for `covars_test` in the NULL model (default 0.05).
 
-+ `relatedness`   n x n sparse Genetic Relationship Matrix (GRM). The file should be saved as a sparse matrix called 'sparseMat' that is saved within a RData file.
++ `relatedness` (optional)    n x n sparse Genetic Relationship Matrix (GRM). The file should be saved as a sparse matrix called 'sparseMat' that is saved within a RData file.
   For example, n x n sparse Matrix of class "dsCMatrix" with sample ID as row and column names:
 
     |         | **1000000** | **1000001** | **1000002** | **1000003** |
@@ -40,8 +40,10 @@ tar -xvf rpackages4_1_3_aou.tar.gz
     | **1000001** | 0.49000 | 1.00000 | 0.20006 | 0.33333 |
     | **1000002** | 0.20000 | 0.20006 | 1.00000 | .       |
     | **1000003** | .       | 0.33333 | .       | 1.0000  |
+
+   This should be used if the user wants to perform separate.residual.variances = A character string specifying the name of a categorical variable in the phenotype file to be used to compute separate residual error variances for heterogeneous groups.
                  
-+ `unrelated`   A tsv file includes 1 column "ID" that includes IDs of unrelated individuals.
++ `unrelated` (optional) A tsv file includes 1 column "ID" that includes IDs of unrelated individuals.
 
    | **ID** |
    |:------:|
@@ -53,7 +55,7 @@ tar -xvf rpackages4_1_3_aou.tar.gz
   
 + `gdsfile`    File name of the genotype data (as GDS file).
   
-+ `groupfile`  File name of the grouping (annotation) information (as RData). The grouping file should be a single dataframe called 'group' that is saved within a RData file.
++ `groupfile` File name of the grouping (annotation) information (as RData). The grouping file should be a single dataframe called 'group' that is saved within a RData file.
                It should contain the following columns with the exact same names:
     + **chr** (string): "2" "2" "2" "2" ...
     + **pos** (numeric): 178527021 178527021 178527023 178527023  ...
@@ -87,8 +89,8 @@ tar -xvf rpackages4_1_3_aou.tar.gz
   covars_test         <- c("PC3", "PC4")            
   Model_type          <- "binomial"                 
   Test_Covar_P_cutoff <- 0.05                
-  relatedness         <- "MyGRM_matrix.RData"     
-  unrelated           <- "unrelated_ID.tsv"         
+  relatedness         <- "MyGRM_matrix.RData"     # or NULL if not available
+  unrelated           <- "unrelated_ID.tsv"       # or NULL if not available  
 ```
 
 
