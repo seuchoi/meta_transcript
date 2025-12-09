@@ -126,6 +126,7 @@ transcript_meta_analysis <- function(
         sub_score <- unique(sub_score)
 
         # Skip if no variants or MAC below threshold
+        if (is.null(sub_score)) next 
         if (nrow(sub_score) == 0L) next
         if (sum(sub_score$MAC) < min_study_cmac) next
 
@@ -329,7 +330,7 @@ transcript_meta_analysis <- function(
 
     } # end transcript loop
   }   # end gene loop
-
+      res<-data.frame(res,row.names=NULL)
   # close progress bar
   if (progress_bar && !is.null(pb)) close(pb)
 
