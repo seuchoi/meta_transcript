@@ -1,6 +1,10 @@
 Simulated example datasets for test runs. All data are simulated as described in the corresponding paper.
 
-Under an outcome prevalence of 0.2% and 4 transcripts, we provide example datasets for three scenarios:
+Setting: 
+   Outcome prevalence = 0.2% 
+   1 gene with 30 causal variants and 4 transcripts.
+
+We provide example datasets for three scenarios:
     1. NULL: none of the transcripts contains causal variants.
         S0_30.gds
         S0_30_group.RData
