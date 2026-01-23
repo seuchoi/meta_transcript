@@ -1,11 +1,13 @@
 # Transcript-Aware Rare Genetic Variant Association Analyses  
 
-Docker file is available at: `us.gcr.io/aou-project-385720/meta_transcript_2.18.0:10282025` (archived `us.gcr.io/aou-project-385720/genesis_meta_2.18.0:Sep172024`)
-
+Docker image of all analysis code: `us.gcr.io/aou-project-385720/meta_transcript_2.18.0:01232025`
 
 <!--
 This is a hidden comment or an entire block of text.
 It will not be visible when the README is displayed on GitHub.
+
+Archived docker:
+`us.gcr.io/aou-project-385720/meta_transcript_2.18.0:10282025`, `us.gcr.io/aou-project-385720/genesis_meta_2.18.0:Sep172024`
 
 Pre-installed Rpackages are available
 
