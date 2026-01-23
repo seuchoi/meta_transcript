@@ -1,7 +1,9 @@
 Simulated example datasets for test runs. All data are simulated as described in the corresponding paper.
 
 Under an outcome prevalence of 0.2%, we provide example datasets for three scenarios:
+
 1. NULL: none of the transcripts contains causal variants.
+⋅⋅⋅⋅* `simrep1_S0_30_0.6.gds`, 
 2. 60% of causal variants are assigned to the canonical transcript.
 3. The canonical transcript contains all causal variants.
 
