@@ -3,6 +3,10 @@
 Docker file is available at: `us.gcr.io/aou-project-385720/meta_transcript_2.18.0:10282025` (archived `us.gcr.io/aou-project-385720/genesis_meta_2.18.0:Sep172024`)
 
 
+<!--
+This is a hidden comment or an entire block of text.
+It will not be visible when the README is displayed on GitHub.
+
 Pre-installed Rpackages are available
 
 ```
@@ -12,6 +16,7 @@ tar -xvf rpackages4_1_3_aou.tar.gz
 
 Installing time is typically less than 10 mins.
 
+-->
 
 
 # Preparation - User Input
