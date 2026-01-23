@@ -10,7 +10,7 @@ wget https://bit.ly/3rmveIc -O rpackages4_1_3_aou.tar.gz
 tar -xvf rpackages4_1_3_aou.tar.gz
 ```
 
-
+Installing time is typically less than 10 mins.
 
 
 
@@ -131,7 +131,7 @@ More example code with simulated data for test runs can be found in `example_dat
 
 Other example code for running transcript-aware rare variant analyses step by step can be found in `src/Analysis_by_steps.R`
 
-
+Runtime depends on the number of samples and variants.
 
 
 # Output
