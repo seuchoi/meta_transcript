@@ -127,6 +127,8 @@ tar -xvf rpackages4_1_3_aou.tar.gz
 ```
 
 
+More example code with simulated data for test runs can be found in `example_data` folder.
+
 Other example code for running transcript-aware rare variant analyses step by step can be found in `src/Analysis_by_steps.R`
 
 
@@ -136,6 +138,6 @@ Other example code for running transcript-aware rare variant analyses step by st
 
 The final outcome with all the results is stored in a file named "Pheno_name_chr_final.RData" (e.g., Cardiomyopathy_chr12_final.RData or Cardiomyopathy_chr12_TTN_final.RData). It contains a list of two dataframes:
 
-+ `**results**`: transcript (including pseudo transcript) specific results. P-values for continuous outcome are in **Burden_Score.pval** column and for binary outcome are in **Burden_SPA.pval**. 
++ `results`: transcript (including pseudo transcript) specific results. P-values for continuous outcome are in **Burden_Score.pval** column and for binary outcome are in **Burden_SPA.pval**. 
 
-+ `**cauchy**`: trascript-aware results (1 p-value per gene).
++ `cauchy`: trascript-aware results (1 p-value per gene).
