@@ -14,4 +14,76 @@ Under an outcome prevalence of 0.2% and 4 transcripts, we provide example datase
 
 Example running script after installation:
 
+############################################################################
+#    Scenario 1. NULL: none of the transcripts contains causal variants.
+############################################################################
+      source("/meta_transcript/src/t_aware_analysis_function.R")
 
+      pheno_name   <- "out_S0_pheno"           
+      pheno_file   <- "pheno_S0_30_1.tsv"   
+      gdsfile      <- "S0_30.gds"         
+      groupfile    <- "S0_30_group.RData"       
+      
+      id_col              <- "person_id"                        
+      outcome_col         <- "y_binary"   # column name of the outcome from the tsv  
+      covars              <- NULL
+      covars_test         <- NULL   
+      Model_type          <- "binomial"                 
+      Test_Covar_P_cutoff <- 0.05                
+      relatedness         <- NULL
+      unrelated           <- NULL
+      chr                 <- "2"
+      gene_id             <- "gene1"   # simulated data only has 1 gene
+      gene_name           <- "GENE1"
+    
+    
+    ## ---------------- analysis -----------------
+    ## keep intermediates only for rep_id==1 as an example
+      t_aware_analysis(
+            pheno_name=pheno_name, pheno_file=pheno_file, id_col=id_col, outcome_col=outcome_col,
+            covars=covars, covars_test=covars_test, relatedness=relatedness, unrelated=unrelated,
+            chr=chr, gene_id=gene_id, gene_name=gene_name, gdsfile=gdsfile, groupfile=groupfile,
+            Test_Covar_P_cutoff=Test_Covar_P_cutoff, Model_type=Model_type
+            )
+
+   ## --------------------------------------------
+   ## check output
+      #load("out_S0_pheno_chr2_GENE1_final.RData")
+      #str(assoc)
+      #assoc$cauchy # T-aware p-value
+
+
+##################################################################################
+#    Scenario 2. 60% of causal variants are assigned to the canonical transcript.
+##################################################################################
+#  only changes:
+      pheno_name   <- "out_S2_pheno"           
+      pheno_file   <- "pheno_S2_30_0.6_1.tsv"   
+      gdsfile      <- "S2_30_0.6.gds"         
+      groupfile    <- "S2_30_0.6_group.RData"       
+
+# The rest of the code are the same as scenario 1.
+        
+## check output
+   #load("out_S2_pheno_chr2_GENE1_final.RData")
+   #str(assoc)
+   #assoc$cauchy # T-aware p-value
+        
+
+
+        
+############################################################################
+#    Scenario 3. The canonical transcript contains all causal variants.
+############################################################################
+#  only changes:
+   pheno_name   <- "out_S4_pheno"           
+   pheno_file   <- "pheno_S4_30_1_1.tsv"   
+   gdsfile      <- "S4_30_1.gds"         
+   groupfile    <- "S4_30_1_group.RData"     
+    
+# The rest of the code are the same as scenario 1.
+
+## check output
+   #load("out_S4_pheno_chr2_GENE1_final.RData")
+   #str(assoc)
+   #assoc$cauchy # T-aware p-value
