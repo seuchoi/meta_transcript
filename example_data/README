@@ -20,7 +20,7 @@ Example running script after installation:
       source("/meta_transcript/src/t_aware_analysis_function.R")
 
       pheno_name   <- "out_S0_pheno"           
-      pheno_file   <- "pheno_S0_30_1.tsv"   
+      pheno_file   <- "pheno_S0_30.tsv"   
       gdsfile      <- "S0_30.gds"         
       groupfile    <- "S0_30_group.RData"       
       
@@ -56,9 +56,9 @@ Example running script after installation:
 ##################################################################################
 #    Scenario 2. 60% of causal variants are assigned to the canonical transcript.
 ##################################################################################
-#  only changes:
+#  only change:
       pheno_name   <- "out_S2_pheno"           
-      pheno_file   <- "pheno_S2_30_0.6_1.tsv"   
+      pheno_file   <- "pheno_S2_30_0.6.tsv"   
       gdsfile      <- "S2_30_0.6.gds"         
       groupfile    <- "S2_30_0.6_group.RData"       
 
@@ -75,9 +75,9 @@ Example running script after installation:
 ############################################################################
 #    Scenario 3. The canonical transcript contains all causal variants.
 ############################################################################
-#  only changes:
+#  only change:
    pheno_name   <- "out_S4_pheno"           
-   pheno_file   <- "pheno_S4_30_1_1.tsv"   
+   pheno_file   <- "pheno_S4_30_1.tsv"   
    gdsfile      <- "S4_30_1.gds"         
    groupfile    <- "S4_30_1_group.RData"     
     
