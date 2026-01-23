@@ -2,13 +2,19 @@ Simulated example datasets for test runs. All data are simulated as described in
 
 Under an outcome prevalence of 0.2% and 4 transcripts, we provide example datasets for three scenarios:
     1. NULL: none of the transcripts contains causal variants.
-        S0_30.gds, S0_30_group.RData, pheno_S0_30.tsv.
+        S0_30.gds
+        S0_30_group.RData
+        pheno_S0_30.tsv
     
     2. 60% of causal variants are assigned to the canonical transcript.
-        S2_30_0.6.gds, S2_30_0.6_group.RData, pheno_S2_30_0.6.tsv.
+        S2_30_0.6.gds 
+        S2_30_0.6_group.RData
+        pheno_S2_30_0.6.tsv.
 
     3. The canonical transcript contains all causal variants.
-        S4_30_1.gds, S4_30_1_group.RData, pheno_S4_30_1.tsv
+        S4_30_1.gds
+        S4_30_1_group.RData
+        pheno_S4_30_1.tsv
 
 
 
