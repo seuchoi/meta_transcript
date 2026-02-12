@@ -354,6 +354,9 @@ result<-list()
 pvalues<-names(data)[names(data) %in% pval.col]
 
 data<-subset(data,n.alt>=min.cmac)
+
+if (nrow(data) == 0) return(NULL)
+
 if(length(pval.col)>1){
 data$Cauchy.pval<-apply(data[,pvalues],1,function(x){x<-na.omit(x);CCT(x)})
 }
