@@ -145,10 +145,13 @@ transcript_meta_analysis <- function(
         V.list[[i]] <- total_cov[vindex, vindex, drop = FALSE]
 
         # Replace diagonal with SPA-calibrated variances (keep off-diagonals)
+        if ("SPA.Score.Variance" %in% names(sub_score)) {
+
         if (nrow(sub_score) > 1L) {
           diag(V.list[[i]]) <- sub_score$SPA.Score.Variance
         } else {
           V.list[[i]][1, 1] <- sub_score$SPA.Score.Variance
+        }
         }
       } # end per-study loop
 
