@@ -41,7 +41,7 @@
 
 
 ############################################################
-source('/UKBB_200KWES_CVD/GENESIS_adaptation_source.R')
+source('/meta_transcript/src/GENESIS_adaptation_source.R')
 source("/meta_transcript/src/ExtractKernalStatistics_SPA_transcript.R")
 #source("/meta_transcript/src/transcript_meta_analysis.R")
 source("/meta_transcript/src/CCT.R")
