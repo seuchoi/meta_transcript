@@ -1,6 +1,6 @@
 #! Rscript
 
-source("UKBB_200KWES_CVD/GENESIS_adaptation_source.R")
+source("GENESIS_adaptation_source.R")
 
 extract_carriers <- function(groupfile, groupings_to_extract, plinkfile, plinkfile_type="bfile", plink_path, collapse=TRUE, canonical=FALSE, max_maf=0.001, max_mac=Inf, num_cores=NULL){
 
