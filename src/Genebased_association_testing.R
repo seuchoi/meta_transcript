@@ -5,7 +5,7 @@
 # (These functions are also included in the source functions commit (GENESIS_adaptation_source.R)
 ##################################################################################################
 
-source('GENESIS_adaptation_source.R')
+source('meta_transcript/src/GENESIS_adaptation_source.R')
 
 # Burden and collapsing tests, options for SPA
 perform_burden_collapse <-function(gdsfile, groupfile, phenfile, ID_col, nullfile, outfile,
