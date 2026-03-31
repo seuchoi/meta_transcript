@@ -35,7 +35,8 @@ source('/UKBB_200KWES_CVD/GENESIS_adaptation_source.R')
   library(GENESIS)
   library(CompQuadForm)
   library(survey)
-  source("/UKBB_200KWES_CVD/GENESIS_adaptation_source.R")
+  #source("/UKBB_200KWES_CVD/GENESIS_adaptation_source.R")
+  source("GENESIS_adaptation_source.R")
   source("/meta_transcript/src/ExtractKernalStatistics_SPA_transcript.R")
 
 
