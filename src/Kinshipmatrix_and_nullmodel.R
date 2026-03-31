@@ -5,7 +5,7 @@
 # (These functions are also icluded in the source commit 'GENESIS_adaptation_source.R')
 ######################################################################################
 
-source('GENESIS_adaptation_source.R')
+source('meta_transcript/src/GENESIS_adaptation_source.R')
 
 
 make_sparse_kinship_matrix_fromKING <- function(KINGfile, famfile, sparse_cutoff=2^(-9/2), outfile_matrix, compute_unrel=FALSE, relat_cutoff=2^(-9/2), outfile_unrel){
