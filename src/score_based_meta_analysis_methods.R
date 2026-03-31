@@ -351,7 +351,8 @@ score_meta <- function(single_variant=F,
 			library(dplyr)
 			library(tidyr)
 			#source('/medpop/afib/sjurgens/Rscripts/association_source.R')
-			try(source('UKBB_200KWES_CVD/GENESIS_adaptation_source.R'))	
+			#try(source('UKBB_200KWES_CVD/GENESIS_adaptation_source.R'))	
+			try(source('meta_transcript/src/GENESIS_adaptation_source.R'))
 			library(dplyr)
 			library(tidyr)
 			
