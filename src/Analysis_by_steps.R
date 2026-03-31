@@ -2,7 +2,8 @@
 #    Step 1. fitting null models without variants     #
 #######################################################
 # https://github.com/seanjosephjurgens/UKBB_200KWES_CVD.git    branch v1.2
-source('/UKBB_200KWES_CVD/GENESIS_adaptation_source.R')
+#source('/UKBB_200KWES_CVD/GENESIS_adaptation_source.R')
+source('/meta_transcript/src/GENESIS_adaptation_source.R')
 
 # For binary outcome:
   filei       = "yourdatafile.tsv"            # file name of your main data set with all covariates and outcome of interest as columns
@@ -36,7 +37,7 @@ source('/UKBB_200KWES_CVD/GENESIS_adaptation_source.R')
   library(CompQuadForm)
   library(survey)
   #source("/UKBB_200KWES_CVD/GENESIS_adaptation_source.R")
-  source("GENESIS_adaptation_source.R")
+  source("/meta_transcript/src/GENESIS_adaptation_source.R")
   source("/meta_transcript/src/ExtractKernalStatistics_SPA_transcript.R")
 
 
