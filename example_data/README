@@ -15,11 +15,20 @@ We provide example datasets for three scenarios:
         S2_30_0.6_group.RData
         pheno_S2_30_0.6.tsv.
 
-    3. The canonical transcript contains all causal variants.
+    3. Both T3 and the canonical transcript contain all causal variants.
         S4_30_1.gds
         S4_30_1_group.RData
         pheno_S4_30_1.tsv
 
+    4. The canonical transcript contains all causal variants. Total causal variants = 30. T3 is noise.
+        S8_30.gds
+        S8_30_group.RData
+        pheno_S8_30.tsv
+
+    5. All causal variants are randomly distributed across transcripts. Total causal variants = 30.
+        S11_30.gds
+        S11_30_group.RData
+        pheno_S11_30.tsv
 
 
 Example running script after installation:
@@ -82,9 +91,9 @@ Example running script after installation:
 
 
         
-############################################################################
-#    Scenario 3. The canonical transcript contains all causal variants.
-############################################################################
+##################################################################################
+#    Scenario 3. Both T3 and the canonical transcript contain all causal variants.
+##################################################################################
 #  only change:
    pheno_name   <- "out_S4_pheno"           
    pheno_file   <- "pheno_S4_30_1.tsv"   
@@ -97,3 +106,7 @@ Example running script after installation:
    #load("out_S4_pheno_chr2_GENE1_final.RData")
    #str(assoc)
    #assoc$cauchy # T-aware p-value
+
+
+
+Similar code for others.
