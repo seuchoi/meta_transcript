@@ -2,6 +2,9 @@
 
 Docker image of all analysis code: `us.gcr.io/aou-project-385720/meta_transcript_2.18.0:03312026`
 
+[![DOI](https://zenodo.org/badge/708453635.svg)](https://doi.org/10.5281/zenodo.20529993)
+
+
 <!--
 This is a hidden comment or an entire block of text.
 It will not be visible when the README is displayed on GitHub.
