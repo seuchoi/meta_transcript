@@ -2,8 +2,7 @@
 
 Docker image of all analysis code: `us.gcr.io/aou-project-385720/meta_transcript_2.18.0:03312026`
 
-[![DOI](https://zenodo.org/badge/708453635.svg)](https://doi.org/10.5281/zenodo.20529993)
-
+[![DOI](https://img.shields.io/badge/DOI-10.5281%2Fzenodo.20529993-blue)](https://doi.org/10.5281/zenodo.20529993)
 
 <!--
 This is a hidden comment or an entire block of text.
@@ -151,3 +150,7 @@ The final outcome with all the results is stored in a file named "Pheno_name_chr
 + `results`: transcript (including pseudo transcript) specific results. P-values for continuous outcome are in **Burden_Score.pval** column and for binary outcome are in **Burden_SPA.pval**. 
 
 + `cauchy`: trascript-aware results (1 p-value per gene).
+
+
+
+
