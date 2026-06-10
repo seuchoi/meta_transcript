@@ -2,7 +2,7 @@
 
 Docker image of all analysis code: `us.gcr.io/aou-project-385720/meta_transcript_2.18.0:03312026`
 
-[![DOI](https://img.shields.io/badge/DOI-10.5281%2Fzenodo.20529993-blue)](https://doi.org/10.5281/zenodo.20529993)
+[![DOI](https://img.shields.io/badge/DOI-10.5281%2Fzenodo.20629089-blue)](https://doi.org/10.5281/zenodo.20629089)
 
 <!--
 This is a hidden comment or an entire block of text.
